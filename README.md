@@ -66,6 +66,18 @@ cd vue-app
 npm install
 ```
 
+- Copy .env.example to .env
+
+```bash
+cp .env.example .env
+```
+
+- Edit .env file with configuration url backend
+
+```bash
+VITE_URL_BACKEND=http://localhost:3000
+```
+
 - Run frontend
 
 ```bash
