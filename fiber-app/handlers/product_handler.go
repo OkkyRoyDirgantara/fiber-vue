@@ -19,7 +19,8 @@ type Product struct {
 func GetAllProduct(ctx *fiber.Ctx) error {
 	db := database.DBConn
 	var Products []Product
-	db.Find(&Products)
+	// order by updated_at desc
+	db.Order("updated_at desc").Find(&Products)
 	return ctx.JSON(fiber.Map{
 		"status":  "success",
 		"message": "All Products",
