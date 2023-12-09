@@ -17,11 +17,11 @@ func main() {
 	app.Use(cors.New())
 	app.Use(logger.New())
 
+	routes.SetUpRoutes(app)
+
 	app.Use(func(c *fiber.Ctx) error {
 		return c.SendStatus(404) // => 404 "Not Found"
 	})
-
-	routes.SetUpRoutes(app)
 
 	log.Fatal(app.Listen(":3000"))
 }
