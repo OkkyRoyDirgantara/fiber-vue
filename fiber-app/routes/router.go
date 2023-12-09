@@ -1,11 +1,11 @@
 package routes
 
 import (
-	"fiber-vue/controllers"
-
 	"github.com/gofiber/fiber/v2"
 )
 
 func SetUpRoutes(app *fiber.App) {
-	app.Get("/allbooks", controllers.AllBooks)
+	api := app.Group("api/v1")
+	AuthRoute(api)
+	ProductRoute(api)
 }
