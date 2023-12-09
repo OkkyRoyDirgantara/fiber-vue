@@ -1,6 +1,8 @@
 package database
 
 import (
+	"fiber-vue/config"
+	"fiber-vue/models"
 	"fmt"
 	"log"
 	"os"
@@ -21,11 +23,11 @@ func ConnectDb() {
 		log.Println("Error loading .env file, using default values.")
 	}
 
-	dbUser := getEnv("DB_USER", "root")
-	dbPass := getEnv("DB_PASS", "")
-	dbHost := getEnv("DB_HOST", "127.0.0.1")
-	dbPort := getEnv("DB_PORT", "3306")
-	dbName := getEnv("DB_NAME", "fiber")
+	dbUser := config.GetEnv("DB_USER", "root")
+	dbPass := config.GetEnv("DB_PASS", "")
+	dbHost := config.GetEnv("DB_HOST", "127.0.0.1")
+	dbPort := config.GetEnv("DB_PORT", "3306")
+	dbName := config.GetEnv("DB_NAME", "fiber")
 
 	// refer https://github.com/go-sql-driver/mysql#dsn-data-source-name for details
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", dbUser, dbPass, dbHost, dbPort, dbName)
@@ -43,14 +45,6 @@ func ConnectDb() {
 	}
 
 	log.Println("Connected to database")
-	// db.AutoMigrate(&models.Book{})
+	models.Migrate(db)
 	DBConn = db
-}
-
-func getEnv(key, defaultValue string) string {
-	value := os.Getenv(key)
-	if value == "" {
-		return defaultValue
-	}
-	return value
 }
