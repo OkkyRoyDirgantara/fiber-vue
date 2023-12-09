@@ -31,3 +31,7 @@ coverage
 
 logs/
 tests_output/
+
+# IDE - VSCode
+.vscode/*
+/.vscode
