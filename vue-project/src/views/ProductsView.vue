@@ -45,8 +45,9 @@
 
 <script>
 import axios from 'axios'
+import BackendService from '../router/backend.ts'
 
-let urlPath = import.meta.env.VITE_URL_BACKEND;
+let urlPath = import.meta.env.VITE_URL_BACKEND
 
 export default {
   data() {
@@ -74,12 +75,9 @@ export default {
   methods: {
     async fetchProducts() {
       try {
-        const response = await axios.get(`${urlPath}/api/v1/product`, {
-          headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token')
-          }
-        })
-        this.products = response.data.data
+        let api = new BackendService()
+        const response = await api.getProducts()
+        this.products = response.data
       } catch (error) {
         console.error('Error fetching products:', error)
       }

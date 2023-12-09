@@ -50,7 +50,7 @@
 <script>
 import axios from 'axios'
 
-let urlPath = import.meta.env.VITE_URL_BACKEND;
+let urlPath = import.meta.env.VITE_URL_BACKEND
 
 export default {
   data() {

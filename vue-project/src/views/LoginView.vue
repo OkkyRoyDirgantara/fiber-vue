@@ -48,8 +48,9 @@
 
 <script>
 import axios from 'axios'
+import BackendService from '../router/backend.ts'
 
-let urlPath = import.meta.env.VITE_URL_BACKEND;
+let urlPath = import.meta.env.VITE_URL_BACKEND
 
 export default {
   name: 'LoginView',
@@ -74,34 +75,26 @@ export default {
         //debug cookie
         // console.log(response)
 
-        axios
-          .post(`${urlPath}/api/v1/auth/login`, {
-            email: this.user.email,
-            password: this.user.password
-          })
-          .then((res) => {
-            //debug user login
-            console.log(res.data)
+        let api = new BackendService()
+        api
+          .login({ email: this.user.email, password: this.user.password })
+          .then((response) => {
+            //debug cookie
+            //set localStorage
+            localStorage.setItem('loggedIn', 'true')
 
-            if (res.data.status == 'success') {
-              //set localStorage
-              localStorage.setItem('loggedIn', 'true')
+            //set localStorage Token
+            localStorage.setItem('token', response.token)
 
-              //set localStorage Token
-              localStorage.setItem('token', res.data.token)
+            //change state
+            this.loggedIn = true
 
-              //change state
-              this.loggedIn = true
-
-              return this.$router.push({ name: 'dashboard-home' })
-            } else {
-              //set state login failed
-              this.loginFailed = true
-            }
+            //redirect to dashboard
+            this.$router.push({ name: 'dashboard-home' })
           })
           .catch((error) => {
+            console.error('Error login:', error)
             this.loginFailed = true
-            console.log(error)
           })
       }
 
