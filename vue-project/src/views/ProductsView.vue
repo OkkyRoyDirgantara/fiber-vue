@@ -19,14 +19,19 @@
 
       <div class="mb-3">
         <label for="description" class="form-label">Product Description:</label>
-        <textarea v-model="createData.description" class="form-control" rows="3" required></textarea>
+        <textarea
+          v-model="createData.description"
+          class="form-control"
+          rows="3"
+          required
+        ></textarea>
       </div>
 
       <div class="mb-3">
         <label for="status" class="form-label">Product Status:</label>
         <select v-model="createData.status" class="form-select" required>
-          <option value=true>Active</option>
-          <option value=false>Inactive</option>
+          <option value="true">Active</option>
+          <option value="false">Inactive</option>
         </select>
       </div>
 
@@ -62,17 +67,25 @@
       {{ errorMessage }}
     </div>
 
-    <h2>Product List</h2>
-    <div class="card my-2" v-for="product in products" :key="product.Code">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          <div class="card-body">
-            <h5 class="card-title">{{ product.Name }}</h5>
-            <p class="card-text">Code: {{ product.Code }}</p>
-            <p class="card-text">Stock: {{ product.Stock }}</p>
+    <div>
+      <h2>Product List</h2>
+      <div class="row">
+        <div class="col-md-4" v-for="product in products" :key="product.Code">
+          <div class="card my-2">
+            <div class="card-body">
+              <h3 class="card-title">{{ product.Name }}</h3>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Code:</strong> {{ product.Code }}</li>
+                <li class="list-group-item"><strong>Stock:</strong> {{ product.Stock }}</li>
+                <li class="list-group-item">
+                  <strong>Description:</strong> {{ product.Description }}
+                </li>
+                <li class="list-group-item"><strong>Status:</strong> {{ product.Status }}</li>
+              </ul>
+            </div>
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -94,7 +107,7 @@ export default {
         code: '',
         stock: 1,
         description: '',
-        status: true,
+        status: true
       },
       errorMessage: null,
       errorMessageCreate: null
@@ -148,13 +161,13 @@ export default {
           code: '',
           stock: 1,
           description: '',
-          status: true,
+          status: true
         }
         this.errorMessageCreate = null
-        }catch (error) {
-          console.error('Error creating product:', error)
-          this.errorMessageCreate = 'Error creating product: ' + error.response.data.message
-        }
+      } catch (error) {
+        console.error('Error creating product:', error)
+        this.errorMessageCreate = 'Error creating product: ' + error.response.data.message
+      }
     }
   }
 }
