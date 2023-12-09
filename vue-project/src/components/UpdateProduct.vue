@@ -40,7 +40,7 @@
 
 <script>
 import axios from 'axios'
-
+let urlPath = import.meta.env.VITE_URL_BACKEND
 export default {
   data() {
     return {
@@ -56,7 +56,7 @@ export default {
   methods: {
     async updateQuantity() {
       axios
-        .patch('http://localhost:3000/api/v1/product', this.updateData, {
+        .patch(`${urlPath}/api/v1/product`, this.updateData, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }

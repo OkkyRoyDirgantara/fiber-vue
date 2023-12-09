@@ -9,6 +9,9 @@
 </template>
 <script>
 import axios from 'axios'
+
+let urlPath = import.meta.env.VITE_URL_BACKEND;
+
 export default {
   name: 'DashboardHomeView',
   data() {
@@ -23,7 +26,7 @@ export default {
   },
   created() {
     axios
-      .get(`http://localhost:8000/api/user`, { headers: { Authorization: 'Bearer ' + this.token } })
+      .get(`${urlPath}/api/user`, { headers: { Authorization: 'Bearer ' + this.token } })
       .then((response) => {
         this.user = response.data // assign response to state user
       })

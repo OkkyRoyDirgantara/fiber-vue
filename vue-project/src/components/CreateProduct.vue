@@ -50,9 +50,9 @@
 <script>
 import axios from 'axios'
 
-export default {
-  name: 'CreateProduct',
+let urlPath = import.meta.env.VITE_URL_BACKEND;
 
+export default {
   data() {
     return {
       createData: {
@@ -69,7 +69,7 @@ export default {
   methods: {
     createProduct() {
       axios
-        .post('http://localhost:3000/api/v1/product', this.createData, {
+        .post(`${urlPath}/api/v1/product`, this.createData, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }

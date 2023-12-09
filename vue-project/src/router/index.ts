@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import CreateProduct from '../components/CreateProduct.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,7 +37,7 @@ const router = createRouter({
             {
               path: 'create',
               name: 'products-create',
-              component: () => CreateProduct
+              component: () => import('../components/CreateProduct.vue')
             },
             {
               path: 'update-stock',

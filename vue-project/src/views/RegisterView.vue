@@ -34,6 +34,8 @@
 <script>
 import axios from 'axios'
 
+let urlPath = import.meta.env.VITE_URL_BACKEND;
+
 export default {
   name: 'RegisterView',
   data() {
@@ -58,7 +60,7 @@ export default {
 
       // Kirim data pendaftaran ke API
       axios
-        .post('http://127.0.0.1:3000/api/v1/user/register', this.userData)
+        .post(`${urlPath}/api/v1/user/register`, this.userData)
         .then((response) => {
           console.log('Registration successful:', response)
           // Reset formulir setelah pendaftaran berhasil

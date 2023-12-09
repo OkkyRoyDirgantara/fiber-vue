@@ -49,6 +49,8 @@
 <script>
 import axios from 'axios'
 
+let urlPath = import.meta.env.VITE_URL_BACKEND;
+
 export default {
   name: 'LoginView',
 
@@ -73,7 +75,7 @@ export default {
         // console.log(response)
 
         axios
-          .post('http://localhost:3000/api/v1/auth/login', {
+          .post(`${urlPath}/api/v1/auth/login`, {
             email: this.user.email,
             password: this.user.password
           })

@@ -46,6 +46,8 @@
 <script>
 import axios from 'axios'
 
+let urlPath = import.meta.env.VITE_URL_BACKEND;
+
 export default {
   data() {
     return {
@@ -72,7 +74,7 @@ export default {
   methods: {
     async fetchProducts() {
       try {
-        const response = await axios.get('http://127.0.0.1:3000/api/v1/product', {
+        const response = await axios.get(`${urlPath}/api/v1/product`, {
           headers: {
             Authorization: 'Bearer ' + localStorage.getItem('token')
           }
@@ -80,25 +82,6 @@ export default {
         this.products = response.data.data
       } catch (error) {
         console.error('Error fetching products:', error)
-      }
-    },
-    async updateQuantity() {
-      try {
-        await axios.patch('http://127.0.0.1:3000/api/v1/product', this.updateData, {
-          headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token')
-          }
-        })
-        this.fetchProducts()
-        this.updateData = {
-          code: '',
-          action: 'add',
-          amount: 1
-        }
-        this.errorMessage = null
-      } catch (error) {
-        console.error('Error updating quantity:', error)
-        this.errorMessage = 'Error updating quantity: ' + error.response.data.message
       }
     },
     async handleProductCreated() {
