@@ -8,9 +8,9 @@
               MAIN MENU
               <hr>
               <ul class="list-group">
-                <router-link :to="{ name: 'dashboard-home' }" class="list-group-item text-dark text-decoration-none">DASHBOARD</router-link>
+                <router-link :to="{ name: 'dashboard-home' }" class="list-group-item text-dark text-decoration-none">Dashboard</router-link>
                 <router-link :to="{ name: 'products' }" class="list-group-item text-dark text-decoration-none">Products</router-link>
-                <li @click="logout" class="list-group-item text-dark text-decoration-none" style="cursor:pointer">LOGOUT</li>
+                <li @click="logout" class="list-group-item text-dark text-decoration-none" style="cursor:pointer">Logout</li>
               </ul>
             </div>
           </div>
