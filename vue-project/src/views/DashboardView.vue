@@ -6,19 +6,31 @@
           <div class="card">
             <div class="card-body">
               MAIN MENU
-              <hr>
+              <hr />
               <ul class="list-group">
-                <router-link :to="{ name: 'dashboard-home' }" class="list-group-item text-dark text-decoration-none">Dashboard</router-link>
-                <router-link :to="{ name: 'products' }" class="list-group-item text-dark text-decoration-none">Products</router-link>
-                <li @click="logout" class="list-group-item text-dark text-decoration-none" style="cursor:pointer">Logout</li>
+                <router-link
+                  :to="{ name: 'dashboard-home' }"
+                  class="list-group-item text-dark text-decoration-none"
+                  >Dashboard</router-link
+                >
+                <router-link
+                  :to="{ name: 'products' }"
+                  class="list-group-item text-dark text-decoration-none"
+                  >Products</router-link
+                >
+                <li
+                  @click="logout"
+                  class="list-group-item text-dark text-decoration-none"
+                  style="cursor: pointer"
+                >
+                  Logout
+                </li>
               </ul>
             </div>
           </div>
         </div>
         <div class="col-md-8">
-          <router-view>
-            
-          </router-view>
+          <router-view> </router-view>
         </div>
       </div>
     </div>
@@ -26,7 +38,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from 'axios'
 
 export default {
   name: 'DashboardView',
@@ -37,28 +49,27 @@ export default {
       // state token
       token: localStorage.getItem('token'),
       // state user logged In
-      user: {},
-    };
+      user: {}
+    }
   },
-  created() {
-  },
+  created() {},
   methods: {
     logout() {
       try {
-        localStorage.removeItem('loggedIn');
+        localStorage.removeItem('loggedIn')
 
-          // redirect
-          this.$router.push({ name: 'login' });
+        // redirect
+        this.$router.push({ name: 'login' })
       } catch (error) {
-        console.error('Error redirecting to login:', error);
+        console.error('Error redirecting to login:', error)
       }
-    },
+    }
   },
   // check if the user is logged in or not
   mounted() {
     if (!this.loggedIn) {
-      this.$router.push({ name: 'login' });
+      this.$router.push({ name: 'login' })
     }
-  },
-};
+  }
+}
 </script>
