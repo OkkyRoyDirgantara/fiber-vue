@@ -8,17 +8,9 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type Product struct {
-	Code        string `validate:"required,min=3,max=10"`
-	Name        string `validate:"required,min=3,max=20"`
-	Stock       int    `validate:"required,min=1"`
-	Description string `validate:"required,min=3,max=255"`
-	Status      bool
-}
-
 func GetAllProduct(ctx *fiber.Ctx) error {
 	db := database.DBConn
-	var Products []Product
+	var Products []models.Product
 	// order by updated_at desc
 	db.Order("updated_at desc").Find(&Products)
 	return ctx.JSON(fiber.Map{
@@ -31,7 +23,7 @@ func GetAllProduct(ctx *fiber.Ctx) error {
 func CreateProduct(ctx *fiber.Ctx) error {
 	db := database.DBConn
 
-	Product := new(Product)
+	Product := new(models.Product)
 	if err := ctx.BodyParser(Product); err != nil {
 		return ctx.Status(500).JSON(fiber.Map{"status": "error", "message": "Review your input", "data": err})
 	}
@@ -75,7 +67,7 @@ func UpdateProductQuantity(ctx *fiber.Ctx) error {
 		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "error", "message": "Validation error", "data": err.Error()})
 	}
 
-	var product Product
+	var product models.Product
 	if db.Where("code = ?", updateData.Code).First(&product).RowsAffected == 0 {
 		return ctx.Status(404).JSON(fiber.Map{
 			"status":  "error",

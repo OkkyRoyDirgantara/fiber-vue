@@ -2,20 +2,15 @@ package handlers
 
 import (
 	"fiber-vue/database"
+	"fiber-vue/models"
 	"fiber-vue/utils"
 
 	"github.com/gofiber/fiber/v2"
 )
 
-type User struct {
-	Name     string `validate:"required,min=5,max=20"`
-	Email    string `validate:"required,email"`
-	Password string `validate:"required,min=8"`
-}
-
 func UserRegister(ctx *fiber.Ctx) error {
 	// Parse request body into NewUser struct
-	User := new(User)
+	User := new(models.User)
 	if err := ctx.BodyParser(User); err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "error", "message": "Error on register request", "data": err})
 	}
